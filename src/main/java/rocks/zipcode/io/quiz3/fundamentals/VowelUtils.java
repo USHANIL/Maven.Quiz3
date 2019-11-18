@@ -5,19 +5,29 @@ package rocks.zipcode.io.quiz3.fundamentals;
  */
 public class VowelUtils {
     public static Boolean hasVowels(String word) {
-        return null;
+        return getIndexOfFirstVowel(word).intValue() != -1;
     }
 
     public static Integer getIndexOfFirstVowel(String word) {
-        return null;
+        char[] charArray = word.toCharArray();
+        Integer index = -1;
+        for (int i = 0; i < charArray.length; i++) {
+            if(isVowel(charArray[i])){
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 
 
     public static Boolean startsWithVowel(String word) {
-        return null;
+        return isVowel(word.charAt(0));
     }
 
     public static Boolean isVowel(Character character) {
-        return null;
+        Character ch = Character.toUpperCase(character);
+        return (ch=='A' || ch=='E' || ch=='I' ||
+                ch=='O' || ch=='U');
     }
 }

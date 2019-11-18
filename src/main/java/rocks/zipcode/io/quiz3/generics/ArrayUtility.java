@@ -33,7 +33,7 @@ public class ArrayUtility<SomeType> {
     }
 
     public Integer getNumberOfOccurrences(SomeType valueToEvaluate) {
-        Integer noOfOccurence = 0;
+       Integer noOfOccurence = 0;
         for (int i = 0; i < array.length; i++) {
             if (array[i].equals(valueToEvaluate)) {
                 noOfOccurence++;
@@ -41,11 +41,12 @@ public class ArrayUtility<SomeType> {
         }
         return noOfOccurence;
 
+
     }
 
     public SomeType[] filter(Function<SomeType, Boolean> predicate) {
 
-        return Arrays.stream(array).filter(value-> predicate.apply(value))
+        return Arrays.stream(array).filter(item-> predicate.apply(item))
                 .toArray(this::getNewArray);
     }
 
