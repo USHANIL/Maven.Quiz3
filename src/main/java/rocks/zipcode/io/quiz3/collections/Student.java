@@ -1,58 +1,66 @@
 package rocks.zipcode.io.quiz3.collections;
 
 import java.util.*;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 
 /**
  * @author leon on 10/12/2018.
  */
 public class Student {
-
-    private Map<String, Lab> labMap;
-
+    List<Lab> labsList;
     public Student() {
-        this(null);
+        this.labsList = new ArrayList<>();
     }
 
     public Student(List<Lab> labs) {
-        labMap = new TreeMap<>();
-        if(labs != null) {
-            for (Lab lab : labs) {
-                labMap.put(lab.getName(), lab);
-            }
-        }
+      this.labsList = labs;
     }
 
     public Lab getLab(String labName) {
-      return labMap.get(labName);
+        for (Lab lab :labsList
+             ) {
+            if(lab.getName() == labName) return lab;
+        }
+        return null;
     }
 
     public void setLabStatus(String labName, LabStatus labStatus) {
-        Lab lab = labMap.get(labName);
-        if(lab != null)
-            lab.setStatus(labStatus);
+        if(labsList.contains(getLab(labName)))
+            //getLab(labName).setStatus(labStatus);
+            for (int i = 0; i < labsList.size(); i++) {
+                if (labsList.get(i).getName() == labName)
+                    labsList.get(i).setStatus(labStatus);
+            }
         else{
             throw new UnsupportedOperationException();
         }
     }
 
     public void forkLab(Lab lab) {
-        lab.setStatus(LabStatus.PENDING);
+        labsList.add(lab);
+       // lab.setStatus(LabStatus.PENDING);
     }
 
     public LabStatus getLabStatus(String labName) {
-       return labMap.getOrDefault(labName, new Lab("default")).getStatus();
+        if(labsList.contains(getLab(labName)))
+            return getLab(labName).getStatus();
+       return null;
     }
 
     @Override
     public String toString() {
 
         String result  = "";
-        TreeSet<String> sortedKeysSet = new TreeSet();
-        sortedKeysSet.addAll(labMap.keySet());
-        for(String key : sortedKeysSet){
-            result += key + " > " + labMap.get(key).getStatus() + "\n";
+       // labsList.forEach(lab -> lab );
+        for (Lab lab: labsList
+             ) {
+            result += lab.getName() + " > " + lab.getStatus() + "\n";
         }
-        return result.substring(0, result.length()-1);
+
+       return result.substring(0, result.length()-1);
+
     }
 }
 
